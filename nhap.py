@@ -192,8 +192,8 @@ class MyTableWidget(QWidget):
 
     def startVideo(self):
         self.on = True
-        s = self.scaleSpinBoxV.value()
-        m = self.minNeighborSpinBoxV.value()
+        s = self.scaleSpinBoxI.value()
+        m = self.minNeighborSpinBoxI.value()
         video = cv2.VideoCapture(self.videoPath.text())
 
         while (video.isOpened()):
@@ -211,7 +211,7 @@ class MyTableWidget(QWidget):
             cv2.imshow('Video', frame)
             cv2.imwrite('tempVideo.png', frame)
 
-            image_reader = QImageReader("tempVideo.png")
+            image_reader = QImageReader("tempvideo.png")
             if image_reader.canRead() is True:
                 widget_height = self.videoView.height()
                 widget_width = self.videoView.width()
@@ -244,22 +244,7 @@ class MyTableWidget(QWidget):
             faces = face_cascade.detectMultiScale(gray, s, m)
             for (x, y, w, h) in faces:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            cv2.imshow('Webcam', img)
-
-            cv2.imwrite('tempCap.png', img)
-
-            image_reader = QImageReader("tempCap.png")
-            if image_reader.canRead() is True:
-                widget_height = self.camView.height()
-                widget_width = self.camView.width()
-                image = image_reader.read().scaled(widget_width, widget_height, Qt.KeepAspectRatio)
-                item = QGraphicsPixmapItem(QPixmap.fromImage(image))
-                scene = QGraphicsScene()
-                scene.addItem(item)
-                self.camView.setScene(scene)
-            else:
-                scene = QGraphicsScene()
-                self.camView.setScene(scene)
+            cv2.imshow('frame', img)
             if (cv2.waitKey(1) & 0xFF == ord('q')) or (self.on == False):
                 break
         cap.release()
@@ -267,6 +252,13 @@ class MyTableWidget(QWidget):
 
     def turnOff(self):
         self.on = False
+
+    def on_click(self):
+        print("a")
+
+    def on_click1(self):
+        print("b")
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
