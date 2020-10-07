@@ -145,6 +145,9 @@ class MyTableWidget(QWidget):
         self.turnOffButton = QPushButton("Off", self.tabWebcam)
         self.turnOffButton.setGeometry(QRect(550, 400, 80, 30))
         self.turnOffButton.clicked.connect(self.turnOff)
+        self.turnOnButton = QPushButton("Cancel", self.tabWebcam)
+        self.turnOnButton.setGeometry(QRect(600, 400, 80, 30))
+        self.turnOnButton.clicked.connect(self.turnCancel)
         # END WEBCAM TAB
 
         # Add tabs to widget
